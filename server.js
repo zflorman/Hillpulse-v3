@@ -25,7 +25,7 @@ async function callGeminiSummary({ text, author, url }) {
 
   const body = { contents: [{ role: "user", parts: [{ text: `${prompt}\n\nTweet text: ${text}\nTweet author: @${author}\nTweet URL: ${url}` }] }] };
 
-  const MAX_RETRIES = 3;
+  const MAX_RETRIES = 5;
   let attempt = 0;
   let lastErr;
 
