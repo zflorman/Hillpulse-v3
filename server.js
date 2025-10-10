@@ -48,7 +48,7 @@ async function callGeminiSummary({ text, author, url }) {
       lastErr = err;
       attempt++;
       if (attempt <= MAX_RETRIES) {
-        const delay = 1000 * Math.pow(2, attempt - 1);
+        const delay = 3000; // 3 seconds between each retry
         console.warn(`Gemini attempt ${attempt} failed (${err.message}). Retrying in ${delay / 1000}s...`);
         await new Promise(r => setTimeout(r, delay));
       }
