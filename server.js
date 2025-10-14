@@ -91,7 +91,7 @@ async function sendPushover({ title, message, url }) {
   const form = new URLSearchParams();
   form.set('token', token);
   form.set('user', user);
-  form.set('title', title || 'HillPulse');
+  form.set('title', title || 'The Capitol Wire');
   form.set('message', message);
   if (url) form.set('url', url);
   const r = await fetch('https://api.pushover.net/1/messages.json', { method: 'POST', body: form });
@@ -112,7 +112,7 @@ app.post('/ingest', async (req, res) => {
     if (!text) return res.status(400).json({ ok: false, error: 'Missing tweet text' });
 
     const summary = await callGeminiSummary({ text, author, url });
-    const pushed = await sendPushover({ title: 'HillPulse', message: summary, url });
+    const pushed = await sendPushover({ title: 'The Capitol Wire', message: summary, url });
     res.json({ ok: true, summary, pushed });
   } catch (e) {
     console.error(e);
