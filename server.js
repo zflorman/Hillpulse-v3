@@ -21,7 +21,7 @@ async function callGeminiSummary({ text, author, url }) {
   if (!GEMINI_KEY) throw new Error('Missing GEMINI_API_KEY');
   const endpoint = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash-lite:generateContent?key=${encodeURIComponent(GEMINI_KEY)}`;
 
-  const prompt = `Summarize this tweet for Hill comms staff in 6–17 words. Use shorthand and abbreviations when clear. Be factual and neutral. Always start with @username: ... Then append the tweet URL.`;
+  const prompt = `Summarize this tweet for Hill comms staff in 6–17 words. Aim for around 180 characters. Use shorthand and abbreviations when clear. Be factual and neutral. Always start with @username: ...`;
 
   const body = { contents: [{ role: "user", parts: [{ text: `${prompt}\n\nTweet text: ${text}\nTweet author: @${author}\nTweet URL: ${url}` }] }] };
 
