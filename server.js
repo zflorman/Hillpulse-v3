@@ -1,3 +1,4 @@
+
 import express from 'express';
 import morgan from 'morgan';
 import nodemailer from 'nodemailer';
@@ -106,7 +107,14 @@ app.post('/ingest', async (req, res) => {
     const body = req.body || {};
     const tweet = body.data || {};
     const url = tweet.url || '';
-    const author = tweet.author || '';
+
+    // Try to use provided author, or extract from URL as fallback
+    let author = tweet.author;
+    if (!author && url) {
+      const match = url.match(/x\.com\/([^\/]+)\//);
+      if (match && match[1]) author = match[1];
+    }
+
     let text = tweet.text || '';
     if (!text && url) text = await fetchTweetText(url);
     if (!text) return res.status(400).json({ ok: false, error: 'Missing tweet text' });
